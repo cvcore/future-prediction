@@ -1,0 +1,18 @@
+name: pytorch_1_7_1
+dependencies:
+  - conda-forge::cupy=7.6.0
+  - pytorch::pytorch=1.7.1
+  - pytorch::torchvision
+  - pip
+  - pip:
+    - wandb
+    - moviepy
+    - imageio
+    - yacs
+    - mmcv
+    - u-msgpack-python
+    - imgaug
+    - termcolor
+    - fvcore==0.1.2.post20201016
+    - inplace-abn
+    - flow-vis

@@ -1,0 +1,19 @@
+name: pytorch_1_8_0
+dependencies:
+    #- conda-forge::cupy=7.6.0
+  - pytorch::pytorch=1.8.0=py3.8_cuda11.1_cudnn8.0.5_0
+  - pytorch::torchvision
+  - conda-forge::cudatoolkit
+  - pip
+  - pip:
+    - wandb
+    - moviepy
+    - imageio
+    - yacs
+    - mmcv
+    - u-msgpack-python
+    - imgaug
+    - termcolor
+    - fvcore==0.1.2.post20201016
+    - inplace-abn
+    - flow-vis

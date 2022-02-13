@@ -1,0 +1,48 @@
+# No downsample: use full resolution input images instead of 1/4
+# The target size is still in 1/4 resolution
+DATASET:
+    PATH: ../../dataset/cityscapes
+    TYPE: cityscapes-seq-eps
+    IMAGE_RESIZE_RATIO: 0.25
+    IMAGE_PAD_SIZE: [256, 512]
+    TARGET_PAD_SIZE: [256, 512]
+
+
+OPTIMIZER:
+    LR: 0.0003
+    MAX_EPOCH: 150
+    LR_SCHEDULER: null
+
+MODEL:
+    BS: 2
+    DISTRIBUTED: True # efficientps requires Distributed Training
+    LOAD: null
+    CHECKPOINT: checkpoints/checkpoint.pth
+    CHECKPOINT_INTERVAL: 1800
+    MODEL_DIR: saved_models
+    EVAL: False
+
+RUNTIME:
+    DEVICE_ID: 0
+    MANUAL_SEED: 0
+    VERBOSE: False
+    VERBOSE_IOU: True
+    WORKERS: 1
+    USE_AUTOCAST: True
+
+PREDICTOR:
+    BACKBONE:
+        TYPE: efficientps-fpn
+        PATH: pretrained_models/perception/efficientps/model_best_depth_train_run26_1.pth
+        CFG: pretrained_models/perception/efficientps/perception_run80_4_city_full.ini
+    DYN:
+        IN_CHANNELS: 960
+    OUT_RESIZE: [256, 512]
+    DECODER:
+        TYPE: fused-fpn
+
+GENERATOR:
+    NORM_SEP_TIME_DIM: False
+
+CRITERION:
+    DISCOUNT_FACTOR: 0.7

@@ -1,0 +1,45 @@
+DATASET:
+    PATH: ../../dataset/cityscapes
+    TARGETS: [semantic-eps]
+    IMAGE_RESIZE_RATIO: 0.25
+    IMAGE_PAD_SIZE: [257, 513]
+
+OPTIMIZER:
+    LR: 0.0003
+    MAX_EPOCH: 150
+    LR_SCHEDULER: null
+
+MODEL:
+    BS: 2
+    DISTRIBUTED: False
+    LOAD: null
+    CHECKPOINT: checkpoints/checkpoint.pth
+    CHECKPOINT_INTERVAL: 1800
+    MODEL_DIR: saved_models
+    EVAL: False
+
+RUNTIME:
+    DEVICE_ID: 0
+    MANUAL_SEED: 0
+    VERBOSE: False
+    VERBOSE_IOU: True
+    WORKERS: 1
+    USE_AUTOCAST: True
+
+PREDICTOR:
+    BLENDER:
+        ENABLE: True
+        N_LAYER: 4
+        OUT_INTERMEDIATE: True
+    BACKBONE:
+        PATH: pretrained_models/perception/panoptic_deeplab_R50_os8_cityscapes_1_4_ds.pth
+        CFG: pretrained_models/perception/panoptic_deeplab_R50_os8_cityscapes_1_4_ds.yaml
+
+DISCRIMINATOR:
+    ENABLE: True
+    TYPE: semantic_video
+GENERATOR:
+    NORM_SEP_TIME_DIM: False
+
+CRITERION:
+    DISCOUNT_FACTOR: 0.7
